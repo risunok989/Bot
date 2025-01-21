@@ -23,7 +23,7 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
         SendMessage sendMessage = SendMessage
                 .builder()
                 .chatId(chatId)
-                .text(message_text)
+                .text("Вы пизданули : " + message_text + " Кстати, товй ID мразь : " + chatId)
                 .build();
 
         // Отправляем сообщение, передавая созданный объект раньше.

@@ -12,6 +12,7 @@ public class Main {
         // Регистрация бота.
         try {
             application.registerBot(botToken, new MyAmazingBot());
+            System.out.println("ПУСК");
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
