@@ -1,5 +1,6 @@
 package org.example;
 
+import org.checkerframework.checker.units.qual.A;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 
@@ -12,18 +13,22 @@ import java.net.URL;
 public class Execute   {
     public Execute(Long chatId) {
         this.chatId = chatId;
+        System.out.println(chatId);
     }
 
     Long chatId ;
     String urlPhoto = "https://th.bing.com/th/id/OIP.gW4mtbdTC6ePkGrwvHidPwHaEK?rs=1&pid=ImgDetMain";
     private final Long ADMIN_ID =  249438024L;
 
+
+
+
     // Скачиваем изображение по URL в InputStream
     URL url;
 
     {
         try {
-            url = new URL(urlPhoto);
+          URL  url = new URL(urlPhoto);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -44,9 +49,9 @@ public class Execute   {
 
     // Создаем объект SendPhoto
     SendPhoto sendPhoto = SendPhoto.builder()
-            .chatId(ADMIN_ID)
+            .chatId(chatId)
             .photo(photoInputFile)
-            .caption("Тест, сучка")
+            .caption("СОСУ ХУЙ")
             .build();
 
 

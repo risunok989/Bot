@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc4418cd-dbdf-49fe-b79a-fc3f8b9594f3" name="Changes" comment="Добавил комментарии.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Execute.java" afterDir="false" />
+    <list default="true" id="cc4418cd-dbdf-49fe-b79a-fc3f8b9594f3" name="Changes" comment="Что-то накодил :3 Проверяю отправку фотографий, пока куча-мала.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Execute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Execute.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/MyAmazingBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/MyAmazingBot.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +112,7 @@
       <updated>1737486833744</updated>
       <workItem from="1737486835040" duration="13000" />
       <workItem from="1737487322955" duration="6560000" />
-      <workItem from="1737571281353" duration="5998000" />
+      <workItem from="1737571281353" duration="7322000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил Зависимость">
       <option name="closed" value="true" />
@@ -171,7 +170,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737493738224</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Что-то накодил :3 Проверяю отправку фотографий, пока куча-мала.">
+      <option name="closed" value="true" />
+      <created>1737577858548</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737577858548</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +203,8 @@
     <MESSAGE value="Реализовал зеркальный ответ пользователю." />
     <MESSAGE value="Отладка." />
     <MESSAGE value="Добавил комментарии." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил комментарии." />
+    <MESSAGE value="Что-то накодил :3 Проверяю отправку фотографий, пока куча-мала." />
+    <option name="LAST_COMMIT_MESSAGE" value="Что-то накодил :3 Проверяю отправку фотографий, пока куча-мала." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

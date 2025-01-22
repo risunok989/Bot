@@ -19,8 +19,8 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     if (update.hasMessage() && update.getMessage().hasText()) {
 
         // Запоминаем ID и TEXT.
-        String message_text = update.getMessage().getText();
         Long chatId = update.getMessage().getChatId();
+        String message_text = update.getMessage().getText();
         System.out.println(update.getMessage().getText() + " " + chatId);
 
 
