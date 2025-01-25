@@ -11,6 +11,7 @@ import java.io.IOException;
 public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
      TelegramClient telegramClient = new OkHttpTelegramClient("5384659247:AAG9CS7x4Dk_HRt6kDkzeuu9PWFRJAbhMDY");
     private final Long ADMIN_ID =  249438024L;
+    private final Long ALEX_ID =  6119250690L;
 
     //Переопределил метод, т.к клас имплеминитрует зависимость.
     @Override
@@ -23,23 +24,23 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
         String message_text = update.getMessage().getText();
         System.out.println(update.getMessage().getText() + " " + chatId);
 
+        new SenderMessage(telegramClient).sendTextMessage(ALEX_ID, message_text);
 
-        // Создаём объект сообщения с помощью паттерна Builder.
+
+//         Создаём объект сообщения с помощью паттерна Builder.
 //        SendMessage sendMessage = SendMessage
 //                .builder()  // Создаем Builder
 //                .chatId(chatId)  // Устанавливаем chatId
 //                .text("Вы пизданули : " + message_text + " Кстати, товй ID мразь : " + chatId)  // Устанавливаем text
 //                .build();   // Создаем объект SendMessage
-
-
-         //Отправляем сообщение, передавая созданный объект раньше.
-        try {
-            telegramClient.execute(new Execute(chatId).sendPhoto);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-
-
+//
+//
+//         //Отправляем сообщение, передавая созданный объект раньше.
+//        try {
+//            telegramClient.execute(sendMessage);
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
     }
     }
 }
