@@ -15,12 +15,11 @@ import java.util.List;
 
 public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     TelegramClient telegramClient = new OkHttpTelegramClient(new GetToken().token());
-//    SenderMessage senderMessage = new SenderMessage();
     private final Long ADMIN_ID = 249438024L;
     private final Long ALEX_ID = 6119250690L;
     private final Long OLGA_ID = 645409728L;
 
-    //Переопределил метод, т.к клас имплеминитрует зависимость.
+    //Переопределил метод, т.к класс имплеминитрует другой класс.
     @Override
     public void consume(Update update) {
         //Если update содержит ТЕКСТ и ЯВЛЯЕТСЯ текстом.
@@ -31,29 +30,19 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
             String message_text = update.getMessage().getText();
             System.out.println(update.getMessage().getText() + " " + chatId);
 
-            // Создаём обьект Класса, отправляем обьект с токеном, вызываем нужный метод отправки.
-            new SenderMessage().sendTextMessage(chatId, message_text);
+            // Проверю есть ли в тексте "/", если да - передаю в HandleCommand для соответствующего ответа.
+            if (message_text.startsWith("/")) {
+                new HandleCommand().handleCommand(chatId, message_text);
+            } else {
+                // Эхо ответ.
+                new SenderMessage().sendTextMessage(chatId, message_text);
+            }
 
-
-//         Создаём объект сообщения с помощью паттерна Builder.
-//        SendMessage sendMessage = SendMessage
-//                .builder()  // Создаем Builder
-//                .chatId(chatId)  // Устанавливаем chatId
-//                .text("Вы пизданули : " + message_text + " Кстати, товй ID мразь : " + chatId)  // Устанавливаем text
-//                .build();   // Создаем объект SendMessage
-//
-//
-//         //Отправляем сообщение, передавая созданный объект раньше.
-//        try {
-//            telegramClient.execute(sendMessage);
-//        } catch (TelegramApiException e) {
-//            e.printStackTrace();
-//        }
+            // Иначе проверяю на наличие фотографий.
         } else if (update.hasMessage() && update.getMessage().hasPhoto()) {
             System.out.println("Пришло фото.");
-
             Long chatId = update.getMessage().getChatId();
-            // Ложим в коллекцию фото разных размеров.
+            // Кладём в коллекцию фото разных размеров.
             List<PhotoSize> photoSizes = update.getMessage().getPhoto();
             // Присваиваем ID фотографии.
             String f_id = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
@@ -72,7 +61,7 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
             // Создаю объект InputFile с ID фотографии для отправки.
             InputFile inputFile = new InputFile(f_id);
             // Создаю объект класса для вызова метода и передачи параметров для отправки.
-            new SenderMessage().sendPhotoMessage(chatId,inputFile, caption);
+            new SenderMessage().sendPhotoMessage(chatId, inputFile, caption);
 
         }
     }

@@ -17,6 +17,12 @@ public class Main {
             application.registerBot(botToken, new MyAmazingBot());
             System.out.println("ПУСК");
             senderMessage.sendTextMessage(249438024L, "Запустился босс.");
+            // Остановка потока.
+            try {
+                Thread.currentThread().join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 //            senderMessage.sendTextMessage(6119250690L, "Запустился Александр.");
         } catch (TelegramApiException e) {
             e.printStackTrace();

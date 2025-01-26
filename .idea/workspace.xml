@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc4418cd-dbdf-49fe-b79a-fc3f8b9594f3" name="Changes" comment="Добавил проверку update на наличии фотографии.">
+    <list default="true" id="cc4418cd-dbdf-49fe-b79a-fc3f8b9594f3" name="Changes" comment="Отредактировал комментарии для читаемости.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/HandleCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/LogingBot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/MyAmazingBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/MyAmazingBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SenderMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SenderMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,23 +54,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/admin/Desktop/TelegramBots-8.2.0/telegrambots-abilities&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Vcs Important Messages": "VCS important messages",
+    "Notification.DoNotAsk-Vcs Important Messages": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/admin/Desktop/TelegramBots-8.2.0/telegrambots-abilities",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.example" />
@@ -120,7 +124,7 @@
       <workItem from="1737579410387" duration="746000" />
       <workItem from="1737630753037" duration="2600000" />
       <workItem from="1737837745405" duration="5935000" />
-      <workItem from="1737917652702" duration="3536000" />
+      <workItem from="1737917652702" duration="5714000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил Зависимость">
       <option name="closed" value="true" />
@@ -218,7 +222,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737919315462</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Добавил в класс SenderMessage метод для отправки фотографий.">
+      <option name="closed" value="true" />
+      <created>1737921400751</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737921400751</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Отредактировал комментарии для читаемости.">
+      <option name="closed" value="true" />
+      <created>1737921653281</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1737921653281</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,7 +267,9 @@
     <MESSAGE value="что-то натворил." />
     <MESSAGE value="Создал отдельный Класс для отправки сообщений, пока только текстовых!" />
     <MESSAGE value="Добавил проверку update на наличии фотографии." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил проверку update на наличии фотографии." />
+    <MESSAGE value="Добавил в класс SenderMessage метод для отправки фотографий." />
+    <MESSAGE value="Отредактировал комментарии для читаемости." />
+    <option name="LAST_COMMIT_MESSAGE" value="Отредактировал комментарии для читаемости." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
