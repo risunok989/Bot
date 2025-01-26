@@ -55,21 +55,23 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
             Long chatId = update.getMessage().getChatId();
             // Ложим в коллекцию фото разных размеров.
             List<PhotoSize> photoSizes = update.getMessage().getPhoto();
-            // Выбираем качество изображения.
+            // Присваиваем ID фотографии.
             String f_id = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
                     .map(PhotoSize::getFileId)
                     .orElse("");
-            // Know photo width
+            // Присваиваем разрешение фотографии. Высота.
             int f_width = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
                     .map(PhotoSize::getWidth)
                     .orElse(0);
-            // Know photo height
+            // Присваиваем разрешение фотографии. Ширина.
             int f_height = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
                     .map(PhotoSize::getHeight)
                     .orElse(0);
-            // Set photo caption
+            // Присваиваем к описанию фотографии вышеуказанный текст.
             String caption = "file_id: " + f_id + "\nwidth: " + Integer.toString(f_width) + "\nheight: " + Integer.toString(f_height);
+            // Создаю объект InputFile с ID фотографии для отправки.
             InputFile inputFile = new InputFile(f_id);
+            // Создаю объект класса для вызова метода и передачи параметров для отправки.
             new SenderMessage().sendPhotoMessage(chatId,inputFile, caption);
 
         }
