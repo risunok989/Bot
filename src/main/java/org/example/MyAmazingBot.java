@@ -1,4 +1,5 @@
 package org.example;
+
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,22 +10,25 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 import java.io.IOException;
 
 public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
-     TelegramClient telegramClient = new OkHttpTelegramClient("5384659247:AAG9CS7x4Dk_HRt6kDkzeuu9PWFRJAbhMDY");
-    private final Long ADMIN_ID =  249438024L;
-    private final Long ALEX_ID =  6119250690L;
+    TelegramClient telegramClient = new OkHttpTelegramClient(new GetToken().token());
+//    SenderMessage senderMessage = new SenderMessage();
+    private final Long ADMIN_ID = 249438024L;
+    private final Long ALEX_ID = 6119250690L;
+    private final Long OLGA_ID = 6119250690L;
 
     //Переопределил метод, т.к клас имплеминитрует зависимость.
     @Override
     public void consume(Update update) {
         //Если update содержит ТЕКСТ и ЯВЛЯЕТСЯ текстом.
-    if (update.hasMessage() && update.getMessage().hasText()) {
+        if (update.hasMessage() && update.getMessage().hasText()) {
 
-        // Запоминаем ID и TEXT.
-        Long chatId = update.getMessage().getChatId();
-        String message_text = update.getMessage().getText();
-        System.out.println(update.getMessage().getText() + " " + chatId);
+            // Запоминаем ID и TEXT.
+            Long chatId = update.getMessage().getChatId();
+            String message_text = update.getMessage().getText();
+            System.out.println(update.getMessage().getText() + " " + chatId);
 
-        new SenderMessage(telegramClient).sendTextMessage(ALEX_ID, message_text);
+            // Создаём обьект Класса, отправляем обьект с токеном, вызываем нужный метод отправки.
+            new SenderMessage().sendTextMessage(chatId, message_text);
 
 
 //         Создаём объект сообщения с помощью паттерна Builder.
@@ -41,6 +45,6 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
 //        } catch (TelegramApiException e) {
 //            e.printStackTrace();
 //        }
-    }
+        }
     }
 }

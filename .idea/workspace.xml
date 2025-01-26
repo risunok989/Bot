@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc4418cd-dbdf-49fe-b79a-fc3f8b9594f3" name="Changes" comment="что-то натворил.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/SenderMessage.java" afterDir="false" />
+    <list default="true" id="cc4418cd-dbdf-49fe-b79a-fc3f8b9594f3" name="Changes" comment="Создал отдельный Класс для отправки сообщений, пока только текстовых!">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/GetToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Execute.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/MyAmazingBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/MyAmazingBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SenderMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SenderMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,13 +68,17 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.example" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IDE\Bot\Bot\src\main" />
+      <recent name="D:\IDE\Bot\Bot\resources" />
     </key>
   </component>
   <component name="RunManager">
@@ -116,7 +122,8 @@
       <workItem from="1737571281353" duration="7393000" />
       <workItem from="1737579410387" duration="746000" />
       <workItem from="1737630753037" duration="2600000" />
-      <workItem from="1737837745405" duration="1508000" />
+      <workItem from="1737837745405" duration="5935000" />
+      <workItem from="1737917652702" duration="321000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил Зависимость">
       <option name="closed" value="true" />
@@ -190,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737579108164</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Создал отдельный Класс для отправки сообщений, пока только текстовых!">
+      <option name="closed" value="true" />
+      <created>1737839380781</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737839380781</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +232,8 @@
     <MESSAGE value="Добавил комментарии." />
     <MESSAGE value="Что-то накодил :3 Проверяю отправку фотографий, пока куча-мала." />
     <MESSAGE value="что-то натворил." />
-    <option name="LAST_COMMIT_MESSAGE" value="что-то натворил." />
+    <MESSAGE value="Создал отдельный Класс для отправки сообщений, пока только текстовых!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Создал отдельный Класс для отправки сообщений, пока только текстовых!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

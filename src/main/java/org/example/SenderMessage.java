@@ -4,14 +4,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-public class SenderMessage {
+// Наследуемся, для получения метода "TelegramClient telegramClient = new......."
+public class SenderMessage extends MyAmazingBot {
     // Создал обьект, с помощью которого возможно отправлять сообщения.
-    TelegramClient telegramClient;
 
     // Конструктор.
-    public SenderMessage(TelegramClient telegramClient) {
-        this.telegramClient = telegramClient;
-    }
+//    public SenderMessage(TelegramClient telegramClient) {
+//        this.telegramClient = telegramClient;
+//    }
 
     public void sendTextMessage(Long chatId, String text) {
         SendMessage sendMessage = SendMessage.builder()
@@ -19,11 +19,12 @@ public class SenderMessage {
                 .text(text)
                 .build();
 
+        // Вызываем метод у execute (для отправки), в ранее полученном обьекте через конструктор.
         try {
             telegramClient.execute(sendMessage);
-            System.out.println("Отправил : " + sendMessage.getChatId());
+            System.err.println("Отправил эхо пользователю с ID : " + sendMessage.getChatId());
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Ошибка отправки сообщения", e);
         }
     }
 
