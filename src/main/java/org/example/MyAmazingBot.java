@@ -45,6 +45,9 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
 //        } catch (TelegramApiException e) {
 //            e.printStackTrace();
 //        }
+        } else if (update.hasMessage() && update.getMessage().hasPhoto()) {
+            System.out.println("Пользователем с id : " + update.getMessage().getChatId() + " прислал ФОТО.");
+
         }
     }
 }
