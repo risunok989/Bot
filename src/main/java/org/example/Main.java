@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class Main {
     public static void main(String[] args) {
         SenderMessage senderMessage = new SenderMessage();
-        // Создаю обьект Класса, для того, что б передать в переменную токен.
+        // Создаю объект Класса, для того, что б передать в переменную токен.
         String botToken = new GetToken().token();
 
         // Экземпляр, для дальнейшей регистрации бота.
