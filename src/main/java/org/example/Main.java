@@ -18,7 +18,7 @@ public class Main {
         // 3. Регистрируем бота и запускаем Long Polling
         try (TelegramBotsLongPollingApplication application = new TelegramBotsLongPollingApplication()) {
             // 4. Регистрация основного бота
-            application.registerBot(botToken, new MyAmazingBot());
+            application.registerBot(botToken, new MyAmazingBot(new SenderMessage(telegramClient)));
             System.out.println("Бот запущен!");
             // 5. Инициализируем сервис для отправки сообщений, отправляю уведомление админу.
             new SenderMessage(telegramClient).sendStartMessageForAdmin();

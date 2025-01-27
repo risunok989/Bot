@@ -34,23 +34,30 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     // Обработчик команд (паттерн "Стратегия" для разделения логики)
     // Клиент для взаимодействия с Telegram API
     private final TelegramClient telegramClient;
-    // Инициализация с клиентом
+    // Handler для взаимодействия с HandleCommand.
     private final HandleCommand commandHandler;
+    private final SenderMessage sender;
 
     // Конструктор класса
-    public MyAmazingBot() {
+    public MyAmazingBot(SenderMessage sender) {
+        this.sender = sender;
         // Инициализация Telegram-клиента с токеном из config.properties
         this.telegramClient = new OkHttpTelegramClient(new GetToken().token());
-        this.commandHandler = new HandleCommand(telegramClient);
+        this.commandHandler = new HandleCommand(telegramClient, new SenderMessage(telegramClient));
     }
 
-    //Переопределил главный метод в который приходят все обновления, т.к классу имплеминитрует другой класс.
+    //Переопределил главный метод в который приходят все обновления, т.к класс имплеминитрует другой класс.
     @Override
     public void consume(Update update) {
         try {
             // Первый уровень проверки.
             if (update.hasCallbackQuery()) {
-                //TODO
+                // TODO: Реализовать обработку нажатий на inline-кнопки
+                // Пример логики:
+                // 1. Получить данные из callbackQuery (callbackData)
+                // 2. Определить действие по callbackData
+                // 3. Обновить сообщение или выполнить команду
+                // 4. Отправить подтверждение о получении callback
                 // Обработка нажатий на inline-кнопки
             } else if (update.hasMessage()) {
                 // Обработка обычных сообщений
@@ -134,7 +141,7 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
             commandHandler.handleCommand(chatId, text);
         } else {
             // Иначе эхо ответ
-            new SenderMessage(telegramClient).sendTextMessage(chatId, text);
+            sender.sendTextMessage(chatId, text);
         }
     }
 

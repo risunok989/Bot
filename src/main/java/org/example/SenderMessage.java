@@ -6,8 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-// Наследуемся, для получения метода "TelegramClient telegramClient = new......."
-public class SenderMessage{
+public class SenderMessage {
     private final TelegramClient telegramClient;
 
     public SenderMessage(TelegramClient telegramClient) {
@@ -15,10 +14,7 @@ public class SenderMessage{
     }
 
     public void sendTextMessage(Long chatId, String text) {
-        SendMessage sendMessage = SendMessage.builder()
-                .chatId(chatId)
-                .text(text)
-                .build();
+        SendMessage sendMessage = SendMessage.builder().chatId(chatId).text(text).build();
 
         // Вызываем метод у execute (для отправки), в ранее полученном объекте через конструктор.
         try {
@@ -30,11 +26,7 @@ public class SenderMessage{
     }
 
     public void sendPhotoMessage(Long chatId, InputFile photo, String caption) {
-        SendPhoto sendPhoto = SendPhoto.builder()
-                .chatId(chatId)
-                .photo(photo)
-                .caption("тест, мать       " + caption)
-                .build();
+        SendPhoto sendPhoto = SendPhoto.builder().chatId(chatId).photo(photo).caption("тест, мать       " + caption).build();
         try {
             try {
                 telegramClient.execute(sendPhoto);
@@ -45,11 +37,9 @@ public class SenderMessage{
             throw new RuntimeException(e);
         }
     }
-    public void sendStartMessageForAdmin () {
-        SendMessage sendMessage = SendMessage.builder()
-                .chatId(249438024L)
-                .text("Я запущен.")
-                .build();
+
+    public void sendStartMessageForAdmin() {
+        SendMessage sendMessage = SendMessage.builder().chatId(249438024L).text("Я запущен.").build();
         try {
             telegramClient.execute(sendMessage);
         } catch (TelegramApiException e) {
