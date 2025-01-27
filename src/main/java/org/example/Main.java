@@ -11,21 +11,25 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        // Создаю объект Класса, для того, что б передать в переменную токен.
+        // 1. Получаем токен бота из файла config.properties
         String botToken = new GetToken().token();
-        // Создаем клиент Telegram
+        // 2. Создаем клиент для взаимодействия с Telegram API
         TelegramClient telegramClient = new OkHttpTelegramClient(botToken);  //
-
-        // Экземпляр, для дальнейшей регистрации бота.
-
-        // Регистрация бота.
+        // 3. Регистрируем бота и запускаем Long Polling
         try (TelegramBotsLongPollingApplication application = new TelegramBotsLongPollingApplication()) {
+            // 4. Регистрация основного бота
             application.registerBot(botToken, new MyAmazingBot());
             System.out.println("Бот запущен!");
+            // 5. Инициализируем сервис для отправки сообщений, отправляю уведомление админу.
             new SenderMessage(telegramClient).sendStartMessageForAdmin();
+            // 6. Блокируем главный поток, чтобы приложение не завершилось (работает и без этого!)
             Thread.currentThread().join();
         } catch (TelegramApiException | InterruptedException e) {
+            System.err.println("❌ Фатальная ошибка при запуске:");
             e.printStackTrace();
+
+            // 6.1. Отправляем админу сообщение об ошибке
+            new SenderMessage(telegramClient).sendTextMessage(249438024L, "Ошибка запуска: " + e.getMessage());
         }
 
     }
