@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
@@ -14,55 +15,138 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
-    TelegramClient telegramClient = new OkHttpTelegramClient(new GetToken().token());
     private final Long ADMIN_ID = 249438024L;
     private final Long ALEX_ID = 6119250690L;
     private final Long OLGA_ID = 645409728L;
 
-    //Переопределил метод, т.к класс имплеминитрует другой класс.
+    public Long getADMIN_ID() {
+        return ADMIN_ID;
+    }
+
+    public Long getALEX_ID() {
+        return ALEX_ID;
+    }
+
+    public Long getOLGA_ID() {
+        return OLGA_ID;
+    }
+
+    // Обработчик команд (паттерн "Стратегия" для разделения логики)
+    // Клиент для взаимодействия с Telegram API
+    private final TelegramClient telegramClient;
+    // Инициализация с клиентом
+    private final HandleCommand commandHandler;
+
+    // Конструктор класса
+    public MyAmazingBot() {
+        // Инициализация Telegram-клиента с токеном из config.properties
+        this.telegramClient = new OkHttpTelegramClient(new GetToken().token());
+        this.commandHandler = new HandleCommand(telegramClient);
+    }
+
+    //Переопределил главный метод в который приходят все обновления, т.к классу имплеминитрует другой класс.
     @Override
     public void consume(Update update) {
-        //Если update содержит ТЕКСТ и ЯВЛЯЕТСЯ текстом.
-        if (update.hasMessage() && update.getMessage().hasText()) {
-
-            // Запоминаем ID и TEXT.
-            Long chatId = update.getMessage().getChatId();
-            String message_text = update.getMessage().getText();
-            System.out.println(update.getMessage().getText() + " " + chatId);
-
-            // Проверю есть ли в тексте "/", если да - передаю в HandleCommand для соответствующего ответа.
-            if (message_text.startsWith("/")) {
-                new HandleCommand().handleCommand(chatId, message_text);
-            } else {
-                // Эхо ответ.
-                new SenderMessage().sendTextMessage(chatId, message_text);
+        try {
+            // Первый уровень проверки.
+            if (update.hasCallbackQuery()) {
+                //TODO
+                // Обработка нажатий на inline-кнопки
+            } else if (update.hasMessage()) {
+                // Обработка обычных сообщений
+                handleMessage(update.getMessage());
             }
-
-            // Иначе проверяю на наличие фотографий.
-        } else if (update.hasMessage() && update.getMessage().hasPhoto()) {
-            System.out.println("Пришло фото.");
-            Long chatId = update.getMessage().getChatId();
-            // Кладём в коллекцию фото разных размеров.
-            List<PhotoSize> photoSizes = update.getMessage().getPhoto();
-            // Присваиваем ID фотографии.
-            String f_id = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
-                    .map(PhotoSize::getFileId)
-                    .orElse("");
-            // Присваиваем разрешение фотографии. Высота.
-            int f_width = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
-                    .map(PhotoSize::getWidth)
-                    .orElse(0);
-            // Присваиваем разрешение фотографии. Ширина.
-            int f_height = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
-                    .map(PhotoSize::getHeight)
-                    .orElse(0);
-            // Присваиваем к описанию фотографии вышеуказанный текст.
-            String caption = "file_id: " + f_id + "\nwidth: " + Integer.toString(f_width) + "\nheight: " + Integer.toString(f_height);
-            // Создаю объект InputFile с ID фотографии для отправки.
-            InputFile inputFile = new InputFile(f_id);
-            // Создаю объект класса для вызова метода и передачи параметров для отправки.
-            new SenderMessage().sendPhotoMessage(chatId, inputFile, caption);
-
+        } catch (Exception e) {
+            System.err.println("Error processing update: " + e.getMessage());
         }
+//        Если update содержит ТЕКСТ и ЯВЛЯЕТСЯ текстом.
+//        if (update.hasMessage() && update.getMessage().hasText()) {
+//
+//            // Запоминаем ID и TEXT.
+//            Long chatId = update.getMessage().getChatId();
+//            String message_text = update.getMessage().getText();
+//            System.out.println(update.getMessage().getText() + " " + chatId);
+//
+//            // Проверю есть ли в тексте "/", если да - передаю в HandleCommand для соответствующего ответа.
+//            if (message_text.startsWith("/")) {
+//                new HandleCommand().handleCommand(chatId, message_text);
+//            } else {
+//                // Эхо ответ.
+//                new SenderMessage().sendTextMessage(chatId, message_text);
+//            }
+//
+//            // Иначе проверяю на наличие фотографий.
+//        } else if (update.hasMessage() && update.getMessage().hasPhoto()) {
+//            System.out.println("Пришло фото.");
+//            Long chatId = update.getMessage().getChatId();
+//            // Кладём в коллекцию фото разных размеров.
+//            List<PhotoSize> photoSizes = update.getMessage().getPhoto();
+//            // Присваиваем ID фотографии.
+//            String f_id = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
+//                    .map(PhotoSize::getFileId)
+//                    .orElse("");
+//            // Присваиваем разрешение фотографии. Высота.
+//            int f_width = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
+//                    .map(PhotoSize::getWidth)
+//                    .orElse(0);
+//            // Присваиваем разрешение фотографии. Ширина.
+//            int f_height = photoSizes.stream().max(Comparator.comparing(PhotoSize::getFileSize))
+//                    .map(PhotoSize::getHeight)
+//                    .orElse(0);
+//            // Присваиваем к описанию фотографии вышеуказанный текст.
+//            String caption = "file_id: " + f_id + "\nwidth: " + Integer.toString(f_width) + "\nheight: " + Integer.toString(f_height);
+//            // Создаю объект InputFile с ID фотографии для отправки.
+//            InputFile inputFile = new InputFile(f_id);
+//            // Создаю объект класса для вызова метода и передачи параметров для отправки.
+//            new SenderMessage().sendPhotoMessage(chatId, inputFile, caption);
+//
+//        }
+    }
+
+
+    // Метод для обработки сообщений разных типов
+    private void handleMessage(Message message) {
+        // Получаем идентификатор чата для ответа
+        Long chatId = message.getChatId();
+
+        // Второй уровень проверки: тип содержимого.
+        if (message.hasText()) {
+            // Текстовые сообщения
+            handleTextMessage(chatId, message);
+        } else if (message.hasPhoto()) {
+            // Сообщения с фотографиями
+            //TODO
+        } else if (message.hasDocument()) {
+            // Сообщения с документами
+            //TODO
+        } else {
+            // Все остальные сообщения.
+            //TODO
+        }
+    }
+
+    // Обработка текстовых сообщений
+    private void handleTextMessage(Long chatId, Message message) {
+        String text = message.getText();
+
+        // Если текс начинается с "/" - это команда
+        if (text.startsWith("/")) {
+            commandHandler.handleCommand(chatId, text);
+        } else {
+            // Иначе эхо ответ
+            new SenderMessage(telegramClient).sendTextMessage(chatId, text);
+        }
+    }
+
+    // Обработка нажатий на inline-кнопки
+    private void handleCallbackQuery(Update update) {
+        // Получаем данные из callback (то что было указано в кнопке)
+        String callbackData = update.getCallbackQuery().getData();
+        // Идентификатор чата, откуда пришло нажатие
+        Long chatId = update.getCallbackQuery().getMessage().getChatId();
+        System.out.println("Received callback: " + callbackData + " from: " + chatId);
+
+        // Отправляем подтверждение обработки
+        new SenderMessage(telegramClient).sendTextMessage(chatId, "Handled callback: " + callbackData);
     }
 }
