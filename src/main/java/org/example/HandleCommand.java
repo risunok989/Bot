@@ -20,7 +20,7 @@ public class HandleCommand {
     public void handleCommand(Long chatID, String command) {
         switch (command.toLowerCase()) { // для преобразования всех символов строки в нижний регистр.
             case "/start":
-                sender.sendTextMessage(chatID, "Привет! Я тестовый бот. Используй /help для списка команд.");
+                sender.sendTextMessageAndCallback(chatID, "Привет! Я тестовый бот. Используй /help для списка команд.");
                 break;
             case "/help":
                 sender.sendTextMessage(chatID, "Доступные команды: \n/start - Начало работы \n/help - Справка");

@@ -3,6 +3,7 @@ package org.example;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -13,6 +14,8 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+
+import static java.lang.Math.toIntExact;
 
 public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     private final Long ADMIN_ID = 249438024L;
@@ -32,9 +35,10 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     }
 
     // Обработчик команд (паттерн "Стратегия" для разделения логики)
-    // Клиент для взаимодействия с Telegram API
-    private final TelegramClient telegramClient;
+    // Клиент для взаимодействия с Telegram API.
     // Handler для взаимодействия с HandleCommand.
+    // Sender для взаимодействия с SenderMessage.
+    private final TelegramClient telegramClient;
     private final HandleCommand commandHandler;
     private final SenderMessage sender;
 
@@ -49,10 +53,11 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     //Переопределил главный метод в который приходят все обновления, т.к класс имплеминитрует другой класс.
     @Override
     public void consume(Update update) {
+
         try {
             // Первый уровень проверки.
             if (update.hasCallbackQuery()) {
-                System.out.println(update.getCallbackQuery().getData());
+            callbackEditMessage(update);
                 // TODO: Реализовать обработку нажатий на inline-кнопки
                 // Пример логики:
                 // 1. Получить данные из callbackQuery (callbackData)
@@ -109,6 +114,39 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
 //            new SenderMessage().sendPhotoMessage(chatId, inputFile, caption);
 //
 //        }
+    }
+
+    public void callbackEditMessage(Update update) {
+        System.out.println(update.getCallbackQuery().getData());
+        String call_data = update.getCallbackQuery().getData();
+        long message_id = update.getCallbackQuery().getMessage().getMessageId();
+        long chat_id = update.getCallbackQuery().getMessage().getChatId();
+
+        if (call_data.equals("Wildberries_update")) {
+            String answer = "Updated message text Wildberries";
+            EditMessageText new_message = EditMessageText.builder()
+                    .chatId(chat_id)
+                    .messageId(toIntExact(message_id))
+                    .text(answer)
+                    .build();
+            try {
+                telegramClient.execute(new_message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        } else if (call_data.equals("Ozon_update")) {
+            String answer = "Updated message text Ozon";
+            EditMessageText new_message = EditMessageText.builder()
+                    .chatId(chat_id)
+                    .messageId(toIntExact(message_id))
+                    .text(answer)
+                    .build();
+            try {
+                telegramClient.execute(new_message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

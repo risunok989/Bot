@@ -22,6 +22,20 @@ public class SenderMessage {
         SendMessage sendMessage = SendMessage.builder()
                 .chatId(chatId)
                 .text(text)
+                .build();
+
+        // Вызываем метод у execute (для отправки), в ранее полученном объекте через конструктор.
+        try {
+            telegramClient.execute(sendMessage);
+            System.err.println("Отправил эхо пользователю с ID : " + sendMessage.getChatId());
+        } catch (TelegramApiException e) {
+            throw new RuntimeException("Ошибка отправки сообщения", e);
+        }
+    }    public void sendTextMessageAndCallback(Long chatId, String text) {
+
+        SendMessage sendMessage = SendMessage.builder()
+                .chatId(chatId)
+                .text(text)
                 .replyMarkup(new InlineKeyboard().inlineKeyboardMarkup())
                 .build();
 
