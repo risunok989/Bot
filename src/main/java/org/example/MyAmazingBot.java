@@ -52,6 +52,7 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
         try {
             // Первый уровень проверки.
             if (update.hasCallbackQuery()) {
+                System.out.println(update.getCallbackQuery().getData());
                 // TODO: Реализовать обработку нажатий на inline-кнопки
                 // Пример логики:
                 // 1. Получить данные из callbackQuery (callbackData)
