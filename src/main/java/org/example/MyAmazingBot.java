@@ -53,7 +53,6 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     //Переопределил главный метод в который приходят все обновления, т.к класс имплеминитрует другой класс.
     @Override
     public void consume(Update update) {
-
         try {
             // Первый уровень проверки.
             if (update.hasCallbackQuery()) {
@@ -116,6 +115,7 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
 //        }
     }
 
+    // Редактирую клавиатуру и вывожу новый текст.
     public void callbackEditMessage(Update update) {
         System.out.println(update.getCallbackQuery().getData());
         String call_data = update.getCallbackQuery().getData();
