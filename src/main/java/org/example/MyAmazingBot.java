@@ -1,38 +1,25 @@
 package org.example;
 
+import org.example.Handlers.HandleCallback;
+import org.example.Handlers.HandleCommand;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
-import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
-
 import static java.lang.Math.toIntExact;
+
+//---------------------------------------------------------------------------//
+//    Класс для обработки update пользователя.                               //
+//---------------------------------------------------------------------------//
 
 public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     private final Long ADMIN_ID = 249438024L;
     private final Long ALEX_ID = 6119250690L;
     private final Long OLGA_ID = 645409728L;
-
-    public Long getADMIN_ID() {
-        return ADMIN_ID;
-    }
-
-    public Long getALEX_ID() {
-        return ALEX_ID;
-    }
-
-    public Long getOLGA_ID() {
-        return OLGA_ID;
-    }
 
     // Обработчик команд (паттерн "Стратегия" для разделения логики)
     // Клиент для взаимодействия с Telegram API.
@@ -56,7 +43,8 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
         try {
             // Первый уровень проверки.
             if (update.hasCallbackQuery()) {
-            callbackEditMessage(update);
+//            callbackEditMessage(update);
+                HandleCallback.handle(update,telegramClient);
                 // TODO: Реализовать обработку нажатий на inline-кнопки
                 // Пример логики:
                 // 1. Получить данные из callbackQuery (callbackData)

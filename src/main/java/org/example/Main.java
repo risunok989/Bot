@@ -7,9 +7,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 public class Main {
-    private static TelegramClient telegramClient;
+    //---------------------------------------------------------------------------//
+    //    Класс для запуска и регистрации бота.                                  //
+    //---------------------------------------------------------------------------//
 
     public static void main(String[] args) throws Exception {
+
 
         // 1. Получаем токен бота из файла config.properties
         String botToken = new GetToken().token();

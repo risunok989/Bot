@@ -1,9 +1,11 @@
-package org.example;
-
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+package org.example.Handlers;
+import org.example.SenderMessage;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-// Наследуюсь для использования методов класса.
+//---------------------------------------------------------------------------//
+//    Класс для обработки команд пользователя (/start, /help.... от update). //
+//---------------------------------------------------------------------------//
+
 public class HandleCommand {
     // Приватное поле для хранения клиента Telegram
     // (ключевое слово final означает, что его нельзя изменить после инициализации).
@@ -27,7 +29,7 @@ public class HandleCommand {
                 sender.sendTextMessage(chatID, "Доступные команды: \n/start - Начало работы \n/help - Справка");
                 break;
             default:
-                sender.sendTextMessage(chatID, "Неизвестная команда. Используй /help для списка команд.");
+                sender.sendTextMessage(chatID, "Неизвестная команда. \nИспользуй /help для списка команд.");
         }
     }
 }

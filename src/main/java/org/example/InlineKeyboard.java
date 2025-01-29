@@ -6,6 +6,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 
 public class InlineKeyboard {
 
+    //---------------------------------------------------------------------------//
+    //    Класс для создания клавиатуры.                                         //
+    //---------------------------------------------------------------------------//
+
     public InlineKeyboardMarkup inlineKeyboardMarkup() {
         // 1. Создаём кнопку.
         InlineKeyboardButton inlineKeyboardButton = InlineKeyboardButton
