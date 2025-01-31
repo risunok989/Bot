@@ -1,8 +1,7 @@
 package org.example;
 
 import org.example.Handlers.HandleCallback;
-import org.example.Handlers.HandleCommand;
-import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
+import org.example.Handlers.HandleMessage;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -20,21 +19,17 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     private final Long ADMIN_ID = 249438024L;
     private final Long ALEX_ID = 6119250690L;
     private final Long OLGA_ID = 645409728L;
+    private final TelegramClient telegramClient;
 
     // Обработчик команд (паттерн "Стратегия" для разделения логики)
-    // Клиент для взаимодействия с Telegram API.
-    // Handler для взаимодействия с HandleCommand.
-    // Sender для взаимодействия с SenderMessage.
-    private final TelegramClient telegramClient;
-    private final HandleCommand commandHandler;
-    private final SenderMessage sender;
 
     // Конструктор класса
-    public MyAmazingBot(SenderMessage sender) {
-        this.sender = sender;
+    public MyAmazingBot(TelegramClient telegramClient) {
+//        this.sender = sender;
         // Инициализация Telegram-клиента с токеном из config.properties
-        this.telegramClient = new OkHttpTelegramClient(new GetToken().token());
-        this.commandHandler = new HandleCommand(telegramClient, new SenderMessage(telegramClient));
+//        this.telegramClient = new OkHttpTelegramClient(new GetToken().token());
+//        this.commandHandler = new HandleCommand(telegramClient, new SenderUserMessage(telegramClient));
+        this.telegramClient = telegramClient;
     }
 
     //Переопределил главный метод в который приходят все обновления, т.к класс имплеминитрует другой класс.
@@ -43,7 +38,6 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
         try {
             // Первый уровень проверки.
             if (update.hasCallbackQuery()) {
-//            callbackEditMessage(update);
                 HandleCallback.handle(update,telegramClient);
                 // TODO: Реализовать обработку нажатий на inline-кнопки
                 // Пример логики:
@@ -53,8 +47,10 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
                 // 4. Отправить подтверждение о получении callback
                 // Обработка нажатий на inline-кнопки
             } else if (update.hasMessage()) {
-                // Обработка обычных сообщений
-                handleMessage(update.getMessage());
+                // Обработка обычных сообщений (Message).
+                // Получаем Message (Все данные).
+                Message message = update.getMessage();
+                new HandleMessage(telegramClient).handleMessage(message);
             }
         } catch (Exception e) {
             System.err.println("Error processing update: " + e.getMessage());
@@ -138,40 +134,6 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     }
 
 
-    // Метод для обработки сообщений разных типов
-    private void handleMessage(Message message) {
-        // Получаем идентификатор чата для ответа
-        Long chatId = message.getChatId();
-
-        // Второй уровень проверки: тип содержимого.
-        if (message.hasText()) {
-            // Текстовые сообщения
-            handleTextMessage(chatId, message);
-        } else if (message.hasPhoto()) {
-            // Сообщения с фотографиями
-            //TODO
-        } else if (message.hasDocument()) {
-            // Сообщения с документами
-            //TODO
-        } else {
-            // Все остальные сообщения.
-            //TODO
-        }
-    }
-
-    // Обработка текстовых сообщений
-    private void handleTextMessage(Long chatId, Message message) {
-        String text = message.getText();
-
-        // Если текс начинается с "/" - это команда
-        if (text.startsWith("/")) {
-            commandHandler.handleCommand(chatId, text);
-        } else {
-            // Иначе эхо ответ
-            sender.sendTextMessage(chatId, text);
-        }
-    }
-
     // Обработка нажатий на inline-кнопки
     private void handleCallbackQuery(Update update) {
         // Получаем данные из callback (то что было указано в кнопке)
@@ -181,6 +143,6 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
         System.out.println("Received callback: " + callbackData + " from: " + chatId);
 
         // Отправляем подтверждение обработки
-        new SenderMessage(telegramClient).sendTextMessage(chatId, "Handled callback: " + callbackData);
+        new SenderUserMessage(telegramClient).sendTextMessage(chatId, "Handled callback: " + callbackData);
     }
 }

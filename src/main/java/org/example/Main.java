@@ -2,7 +2,6 @@ package org.example;
 
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
@@ -21,10 +20,10 @@ public class Main {
         // 3. Регистрируем бота и запускаем Long Polling
         try (TelegramBotsLongPollingApplication application = new TelegramBotsLongPollingApplication()) {
             // 4. Регистрация основного бота
-            application.registerBot(botToken, new MyAmazingBot(new SenderMessage(telegramClient)));
+            application.registerBot(botToken, new MyAmazingBot(telegramClient));
             System.out.println("Бот запущен!");
             // 5. Инициализируем сервис для отправки сообщений, отправляю уведомление админу.
-            new SenderMessage(telegramClient).sendStartMessageForAdmin();
+            new SenderUserMessage(telegramClient).sendStartMessageForAdmin();
             // 6. Блокируем главный поток, чтобы приложение не завершилось (работает и без этого!)
             Thread.currentThread().join();
         } catch (TelegramApiException | InterruptedException e) {
@@ -32,7 +31,7 @@ public class Main {
             e.printStackTrace();
 
             // 6.1. Отправляем админу сообщение об ошибке
-            new SenderMessage(telegramClient).sendTextMessage(249438024L, "Ошибка запуска: " + e.getMessage());
+            new SenderUserMessage(telegramClient).sendTextMessage(249438024L, "Ошибка запуска: " + e.getMessage());
         }
 
     }

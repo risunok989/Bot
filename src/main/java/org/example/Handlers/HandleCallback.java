@@ -1,6 +1,6 @@
 package org.example.Handlers;
 
-import org.example.SenderMessage;
+import org.example.SenderUserMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
@@ -26,7 +26,7 @@ public class HandleCallback {
                     .messageId(toIntExact(message_id))
                     .text(answer)
                     .build();
-            new SenderMessage(telegramClient).executeMessage(new_message);
+            new SenderUserMessage(telegramClient).executeMessage(new_message);
         } else if (call_data.equals("Ozon_update")) {
             String answer = "Updated message text Ozon";
             EditMessageText new_message = EditMessageText.builder()
@@ -34,7 +34,7 @@ public class HandleCallback {
                     .messageId(toIntExact(message_id))
                     .text(answer)
                     .build();
-           new SenderMessage(telegramClient).executeMessage(new_message);
+           new SenderUserMessage(telegramClient).executeMessage(new_message);
         }
     }
 }

@@ -11,10 +11,10 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 //    Класс для отправки сообщений пользователю.                             //
 //---------------------------------------------------------------------------//
 
-public class SenderMessage {
+public class SenderUserMessage {
     private final TelegramClient telegramClient;
 
-    public SenderMessage(TelegramClient telegramClient) {
+    public SenderUserMessage(TelegramClient telegramClient) {
         this.telegramClient = telegramClient;
     }
 
@@ -32,7 +32,7 @@ public class SenderMessage {
 
     }
 
-    public void sendTextMessageAndCallback(Long chatId, String text) {
+    public void createPlatformKeyboard(Long chatId, String text) {
 
         SendMessage sendMessage = SendMessage.builder()
                 .chatId(chatId)
