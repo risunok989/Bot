@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Handlers.HandleCallback;
+import org.example.Handlers.HandleCommand;
 import org.example.Handlers.HandleMessage;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -20,16 +21,19 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
     private final Long ALEX_ID = 6119250690L;
     private final Long OLGA_ID = 645409728L;
     private final TelegramClient telegramClient;
-
+    private final HandleCommand handleCommand;
+    private final HandleMessage handleMessage;
     // Обработчик команд (паттерн "Стратегия" для разделения логики)
 
     // Конструктор класса
-    public MyAmazingBot(TelegramClient telegramClient) {
+    public MyAmazingBot(TelegramClient telegramClient, HandleCommand handleCommand, HandleMessage handleMessage) {
 //        this.sender = sender;
         // Инициализация Telegram-клиента с токеном из config.properties
 //        this.telegramClient = new OkHttpTelegramClient(new GetToken().token());
 //        this.commandHandler = new HandleCommand(telegramClient, new SenderUserMessage(telegramClient));
         this.telegramClient = telegramClient;
+        this.handleCommand = handleCommand;
+        this.handleMessage = handleMessage;
     }
 
     //Переопределил главный метод в который приходят все обновления, т.к класс имплеминитрует другой класс.
@@ -50,7 +54,7 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
                 // Обработка обычных сообщений (Message).
                 // Получаем Message (Все данные).
                 Message message = update.getMessage();
-                new HandleMessage(telegramClient).handleMessage(message);
+                handleMessage.handleTextMessage(message);
             }
         } catch (Exception e) {
             System.err.println("Error processing update: " + e.getMessage());

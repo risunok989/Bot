@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Handlers.HandleCommand;
+import org.example.Handlers.HandleMessage;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -20,7 +22,7 @@ public class Main {
         // 3. Регистрируем бота и запускаем Long Polling
         try (TelegramBotsLongPollingApplication application = new TelegramBotsLongPollingApplication()) {
             // 4. Регистрация основного бота
-            application.registerBot(botToken, new MyAmazingBot(telegramClient));
+            application.registerBot(botToken, new MyAmazingBot(telegramClient, new HandleCommand(telegramClient), new HandleMessage(telegramClient, new HandleCommand(telegramClient))));
             System.out.println("Бот запущен!");
             // 5. Инициализируем сервис для отправки сообщений, отправляю уведомление админу.
             new SenderUserMessage(telegramClient).sendStartMessageForAdmin();

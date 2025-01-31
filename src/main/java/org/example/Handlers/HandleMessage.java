@@ -6,9 +6,11 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 public class HandleMessage {
     private final TelegramClient telegramClient;
+    private final HandleCommand handleCommand;
 
-    public HandleMessage(TelegramClient telegramClient) {
+    public HandleMessage(TelegramClient telegramClient, HandleCommand handleCommand) {
         this.telegramClient = telegramClient;
+        this.handleCommand = handleCommand;
     }
     // Метод для обработки сообщений разных типов
 
@@ -40,7 +42,8 @@ public class HandleMessage {
 
         // Если текс начинается с "/" - это команда
         if (command.startsWith("/")) {
-            new HandleCommand(telegramClient).handleCommand(chatId, command);
+            handleCommand.handleCommand(chatId, command);
+//            new HandleCommand(telegramClient).handleCommand(chatId, command);
         } else {
             // Иначе эхо ответ
             senderUserMessage.sendTextMessage(chatId, command);
