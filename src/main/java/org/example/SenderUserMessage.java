@@ -58,7 +58,8 @@ public class SenderUserMessage {
     }
 
     public void sendStartMessageForAdmin() {
-        SendMessage sendMessage = SendMessage.builder().chatId(249438024L).text("Я запущен.").build();
+        Long adminId = new GetToken().adminID();
+        SendMessage sendMessage = SendMessage.builder().chatId(adminId).text("Я запущен.").build();
         executeMessage(sendMessage);
     }
 

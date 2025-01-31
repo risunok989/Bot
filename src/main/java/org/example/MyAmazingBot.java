@@ -27,10 +27,8 @@ public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
 
     // Конструктор класса
     public MyAmazingBot(TelegramClient telegramClient, HandleCommand handleCommand, HandleMessage handleMessage) {
-//        this.sender = sender;
         // Инициализация Telegram-клиента с токеном из config.properties
-//        this.telegramClient = new OkHttpTelegramClient(new GetToken().token());
-//        this.commandHandler = new HandleCommand(telegramClient, new SenderUserMessage(telegramClient));
+        // Передача зависимостей через конструктор (DI)
         this.telegramClient = telegramClient;
         this.handleCommand = handleCommand;
         this.handleMessage = handleMessage;
