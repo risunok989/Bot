@@ -14,10 +14,8 @@ public class HandleMessage {
     }
     // Метод для обработки сообщений разных типов
 
-
     public void handleMessage(Message message) {
         // Получаем идентификатор чата для ответа
-
         // Второй уровень проверки: тип содержимого.
         if (message.hasText()) {
             // Текстовые сообщения

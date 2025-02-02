@@ -1,5 +1,7 @@
 package org.example.Handlers;
 
+import org.example.Main;
+import org.example.MyAmazingBot;
 import org.example.SenderUserMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
@@ -26,10 +28,14 @@ public class HandleCommand {
                         "\nИспользуйте /help для списка команд." + "\nВыберите из списка ниже маркетплейс.");
                 break;
             case "/help":
-                senderUserMessage.sendTextMessage(chatID, "Доступные команды: \n/start - Начало работы \n/help - Справка");
+                senderUserMessage.sendTextMessage(chatID, "Доступные команды: \n/start - Начало работы " +
+                        "\n/help - Справка");
                 break;
+                case "/stop":
+
             default:
-                senderUserMessage.sendTextMessage(chatID, "Неизвестная команда. \nИспользуй /help для списка команд.");
+                senderUserMessage.sendTextMessage(chatID, "Неизвестная команда. " +
+                        "\nИспользуй /help для списка команд.");
         }
     }
 }

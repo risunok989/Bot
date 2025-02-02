@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -12,6 +14,7 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 //---------------------------------------------------------------------------//
 
 public class SenderUserMessage {
+    private static final Logger logger = LogManager.getLogger(SenderUserMessage.class);
     private final TelegramClient telegramClient;
 
     public SenderUserMessage(TelegramClient telegramClient) {
@@ -25,7 +28,7 @@ public class SenderUserMessage {
                 .chatId(chatId)
                 .text(text)
                 .build();
-        System.out.println("Эхо ответ пользователю с id: " + chatId + ", text: " + text);
+//        System.out.println("Эхо ответ пользователю с id: " + chatId + ", text: " + text);
 
         // Вызываем метод у execute (для отправки), в ранее полученном объекте через конструктор.
         executeMessage(sendMessage);
@@ -65,18 +68,17 @@ public class SenderUserMessage {
 
     // Отправка подготовленного сообщения Телеграмм Клиенту.
     public void executeMessage(SendMessage message) {
-        try {
             try {
+                logger.info("!!! Сообщение: '{}' отправлено пользователю: '{}'  !!!", message.getText(), message.getChatId());
                 telegramClient.execute(message);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                logger.error("Ошибка отправки сообщения: {}ID: {}", message.getText(), message.getChatId());
             }
 
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
         }
 
-    }
+
+
 
     public void executeMessage(EditMessageText message) {
         try {
